@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ```
 * Open main.py and thats it!
 
-### Option 2: Install the latest [Release](https://github.com/JustDevRyan/gerber_to_stl/releases) (Recommended)
+### Option 2: Install the latest [Release](https://github.com/JustDevRyan/gerber_to_stl/releases) (Recommended) (Windows Installer coming soon...)
 
 * Go to the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page
 
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 * Extract the ZIP into a folder of your choice
 
-* Drag the shortcut named **Gerber to STL** to the desktop
+* Make a shortcut to main.exe named **Gerber to STL** to the desktop
 
 * Open the shortcut (no Python installation required)
 
