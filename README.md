@@ -6,7 +6,7 @@
 ## Installation
 
 ### Option 1: Setup and run the application with Python
-`gerber_to_stl` **requires Python 3.10**
+`gerber_to_stl` **requires Python 3.9**
 
 * Unzip openscad.zip
 
