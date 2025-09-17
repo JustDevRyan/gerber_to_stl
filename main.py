@@ -48,7 +48,7 @@ class WebServerUI(QWidget):
 
         layout = QVBoxLayout()
 
-        # Label colors
+        # --- Label colors ---
         global INFO
         INFO = '<span style="color:#00b5de;">[INFO]</span>'
         global ERROR
@@ -58,7 +58,7 @@ class WebServerUI(QWidget):
         global SUCCESS
         SUCCESS = '<span style="color:green;">[SUCCESS]</span>'
 
-        # Title
+        # --- Title ---
         title = QLabel(
             'Ported to Windows by <a href="https://github.com/JustDevRyan" style="text-decoration:none; color:#3399ff; cursor:pointer;">JustDevRyan</a>'
         )
