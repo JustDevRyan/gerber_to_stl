@@ -4,38 +4,49 @@ import signal
 import threading
 from wsgiref.simple_server import make_server, WSGIServer, WSGIRequestHandler
 
+import webbrowser
+
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QCheckBox,
     QLineEdit, QTextEdit, QPushButton, QLabel
 )
-from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtGui import QIcon
 
 from gts_service.wsgi import application
 
+class EmittingStream(QObject):
+    """Redirect stdout/stderr to a QTextEdit safely (thread-safe)."""
+    text_written = pyqtSignal(str)
 
-class EmittingStream:
-    # Redirect stdout/stderr to a QTextEdit.
     def __init__(self, text_edit):
+        super().__init__()
         self.text_edit = text_edit
+        self.text_written.connect(self._append_text)
 
     def write(self, text):
         if text.strip():
-            self.text_edit.append(text)
-            self.text_edit.moveCursor(self.text_edit.textCursor().End)
+            self.text_written.emit(text)
 
     def flush(self):
         pass
+
+    def _append_text(self, text):
+        self.text_edit.append(text)
+        self.text_edit.moveCursor(self.text_edit.textCursor().End)
+
+
 
 class WebServerUI(QWidget):
     def __init__(self):
         super().__init__()
         self.stop_event = threading.Event()
 
-        self.setWindowTitle("Gerber To STL")
+        self.setWindowTitle("Gerber to STL Web Server")
+        self.setWindowIcon(QIcon("icon.ico"))
 
         layout = QVBoxLayout()
-
 
         # Label colors
         global INFO
@@ -47,14 +58,12 @@ class WebServerUI(QWidget):
         global SUCCESS
         SUCCESS = '<span style="color:green;">[SUCCESS]</span>'
 
-
-
-        # --- Title ---
+        # Title
         title = QLabel(
             'Ported to Windows by <a href="https://github.com/JustDevRyan" style="text-decoration:none; color:#3399ff; cursor:pointer;">JustDevRyan</a>'
         )
         title.setAlignment(Qt.AlignCenter)
-        title.setOpenExternalLinks(True)  # Make link clickable
+        title.setOpenExternalLinks(True)
         title.setStyleSheet("""
             font-size: 20px;
             margin: 12px;
@@ -79,14 +88,23 @@ class WebServerUI(QWidget):
         self.console.setReadOnly(True)
         layout.addWidget(self.console, stretch=1)
 
-        # --- Start/Stop button ---
+        # --- Start/Stop and Open buttons ---
+        button_row = QHBoxLayout()
+
         self.start_button = QPushButton("Start Webserver")
         self.start_button.clicked.connect(self.toggle_webserver)
-        layout.addWidget(self.start_button)
+        button_row.addWidget(self.start_button)
+
+        self.open_button = QPushButton("Open Webserver")
+        self.open_button.clicked.connect(self.open_webserver)
+        button_row.addWidget(self.open_button)
+
+        layout.addLayout(button_row)
+
 
         self.setLayout(layout)
 
-        # Redirect stdout/stderr
+        # Redirect stdout/stderr ONLY to QTextEdit
         sys.stdout = EmittingStream(self.console)
         sys.stderr = EmittingStream(self.console)
 
@@ -122,7 +140,7 @@ class WebServerUI(QWidget):
         self.server_thread = threading.Thread(target=self.runserver, args=(host, port), daemon=True)
         self.server_thread.start()
 
-    def stop_webserver(self):        
+    def stop_webserver(self):
         if self.server_instance:
             print(f"{WARNING} Requesting server stop...")
             self.stop_event.set()
@@ -135,6 +153,15 @@ class WebServerUI(QWidget):
         else:
             print(f"{ERROR} No running webserver to stop.")
 
+    def open_webserver(self):
+        try:
+            port = int(self.port_input.text())
+            url = f"http://127.0.0.1:{port}"
+            webbrowser.open(url)
+            print(f"{INFO} Opening {url} in default browser...")
+        except ValueError:
+            print(f"{ERROR} Invalid port number.")
+
     def runserver(self, host, port):
         os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gts_service.settings")
         try:
@@ -143,14 +170,22 @@ class WebServerUI(QWidget):
                 print(f"{SUCCESS} Serving on http://{host}:{port} (Press Stop Webserver or close app to quit)")
 
                 while not self.stop_event.is_set():
-                    httpd.handle_request()
+                    try:
+                        httpd.handle_request()
+                    except Exception as e:
+                        import traceback
+                        print(f"{ERROR} Exception in request:\n{traceback.format_exc()}")
         except OSError as e:
             print(f"{ERROR} Could not start server: {e}")
+        except Exception as e:
+            import traceback
+            print(f"{ERROR} Unhandled server error:\n{traceback.format_exc()}")
         finally:
             self.server_instance = None
             self.server_thread = None
             self.start_button.setText("Start Webserver")
             print(f"{INFO} Webserver thread exited.")
+
 
 
 if __name__ == "__main__":
@@ -165,7 +200,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = WebServerUI()
     window.resize(390, 450)
-    window.setWindowIcon(QIcon(".\icon.ico"))
-    window.setFixedSize(window.size()) 
     window.show()
     sys.exit(app.exec_())
