@@ -1,7 +1,8 @@
 # Gerber to STL
 ## Makes a 3D printable solder stencil by just uploading two gerber files!
 
-~~This repository has both a CLI tool, and a web app available at https://solder-stencil.me.~~ Unfortunately the website no longer works so that is why i made this project a standalone windows application that starts a webserver which is.
+~~This repository has both a CLI tool, and a web app available at https://solder-stencil.me.~~ Unfortunately the website is no longer available so that is why i made this project a standalone windows application that starts a webserver.
+
 ## Installation
 
 ### Option 1: Setup and run the application with Python
