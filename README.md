@@ -1,5 +1,6 @@
-# Gerber to STL
-## Makes a 3D printable solder stencil by just uploading two gerber files!
+# Gerber to STL - Make your pcb solder stencil a 3D Printable STL
+
+## The best tool for creating 3D printable stencils for your prototype pcbs by just uploading two gerber files!
 
 ~~This repository has both a CLI tool, and a web app available at https://solder-stencil.me.~~ Unfortunately the website is no longer available so that is why i made this project a standalone windows application.
 
