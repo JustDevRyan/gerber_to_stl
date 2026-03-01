@@ -1,0 +1,543 @@
+:root{
+  --color: #333;
+  --background: #fefefe;
+  --accent: #2dd4bf;
+  --focus: #ff0078;
+  --grid-size: 20px;
+  --grid-opacity: 0.05;
+  --radius-lg: 20px;
+  --radius-md: 15px;
+  --border-thick: 4px;
+  --control-border: 3px;
+  --shadow-offset: 4px;
+  --max-width: 800px;
+}
+
+/* Reset & base */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--background);
+  color:var(--color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height:1.6;
+  min-height:100vh;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+
+/* Custom selection color */
+::selection {
+    background: #6e48e0;
+    color: #EEE;
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background: #6e48e0;
+    color: #EEE;
+    text-shadow: none;
+}
+
+/* Vignette + grid backdrop */
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background: radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,0.18) 100%);
+  opacity:1;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+  background-image:
+    linear-gradient(rgba(51,51,51,var(--grid-opacity)) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(51,51,51,var(--grid-opacity)) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  opacity:1;
+}
+
+/* ---------- Layout ---------- */
+.container{
+  max-width:var(--max-width);
+  margin:28px auto;
+  padding:20px;
+  position:relative;
+  z-index:1;
+}
+
+/* ---------- Header & cards ---------- */
+.header,
+.card {
+  background: var(--background);
+  border: 2px solid var(--color); /* Changed from 4px to 2px for "thin" look */
+  border-radius: var(--radius-lg);
+  position: relative;
+  margin-bottom: 28px;
+  /* overflow: hidden;  <-- REMOVE THIS */
+}
+
+/* offset dark layer for "hand-torn" look */
+.header::before,
+.card::before {
+  content: "";
+  position: absolute;
+  top: 4px;   
+  left: 4px;
+  right: -4px; /* Reduced from 6px to 4px to match the thin vibe */
+  bottom: -4px;
+  background: var(--color);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/* Header specifics */
+.header{
+  padding:28px;
+  text-align:center;
+}
+.header h1{
+  font-size:2.2rem;
+  font-weight:900;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:1.6px;
+}
+.header .subtitle{
+  opacity:.88;
+  margin-bottom:8px;
+  font-size:1.2rem;
+}
+.header .author{
+  color:var(--accent);
+  font-weight:600;
+  font-size:.95rem;
+}
+
+/* Card header / body */
+.card-header {
+  background: var(--color);
+  color: var(--background);
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 16px 16px 0 0; /* Match the inner curve of the card */
+}
+
+.card-body{
+  padding:22px;
+}
+
+/* ---------- Utility blocks ---------- */
+.section-divider{
+  height:2.5px;
+  background:var(--color);
+  border-radius:2px;
+  margin:22px 0;
+}
+
+/* Warning block */
+.warning{
+  background:var(--accent);
+  color:var(--background);
+  padding:14px;
+  border-radius:10px;
+  font-weight:700;
+  margin-top:12px;
+  position:relative;
+  border:3px solid var(--color);
+}
+.warning::before{
+  content:"";
+  position:absolute;
+  top:3px;
+  left:3px;
+  right:-3px;
+  bottom:-3px;
+  background:var(--color);
+  border-radius:10px;
+  z-index:-1;
+  opacity:0.85;
+}
+
+/* Info icon */
+.info-icon{
+  display:inline-block;
+  width:24px;
+  height:24px;
+  background:var(--color);
+  color:var(--background);
+  border-radius:50%;
+  text-align:center;
+  line-height:24px;
+  font-weight:700;
+  margin-right:10px;
+}
+
+/* ---------- Forms & controls ---------- */
+.form-group{margin-bottom:16px}
+.form-group label{
+  display:block;
+  font-weight:700;
+  margin-bottom:8px;
+  color:var(--color);
+}
+
+/* Generic text inputs & file input */
+.form-control,
+input[type="file"],
+input[type="number"]{
+  width:100%;
+  padding:12px 14px;
+  border:var(--control-border) solid var(--color);
+  border-radius:25px;
+  background:var(--background);
+  font-size:1rem;
+  transition:all .28s cubic-bezier(.25,.46,.45,.94);
+}
+
+/* file input button */
+input[type="file"]::file-selector-button{
+  background:var(--accent);
+  color:var(--background);
+  border:3px solid var(--color);
+  padding:8px 14px;
+  border-radius:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .25s;
+}
+input[type="file"]::file-selector-button:hover{ background:#22c55e; border-radius: 11px }
+
+/* focus styles (accessible) */
+.form-control:focus,
+input[type="file"]:focus,
+input[type="number"]:focus{
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(45,212,191,0.12);
+  outline:3px dashed var(--accent);
+  outline-offset:4px;
+}
+
+/* Checkbox group */
+.checkbox-group{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+  cursor:pointer;
+  user-select:none;
+  font-weight:600;
+}
+.checkbox-group input[type="checkbox"]{
+  appearance:none;
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  border:3px solid var(--color);
+  border-radius:4px;
+  background:var(--background);
+  position:relative;
+  cursor:pointer;
+  transition:transform .2s ease, background .2s ease;
+}
+.checkbox-group input[type="checkbox"]:checked{
+  background:var(--accent);
+  border-color:var(--color);
+  transform:scale(1.05);
+}
+/* checkmark */
+.checkbox-group input[type="checkbox"]:checked::after{
+  content:"✓";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  color:var(--background);
+  font-weight:800;
+  font-size:12px;
+  line-height:1;
+  animation:checkmark .32s cubic-bezier(.25,.46,.45,.94);
+}
+
+@keyframes checkmark{
+  from{ transform:translate(-50%,-50%) scale(.2); opacity:0 }
+  60%{ transform:translate(-50%,-50%) scale(1.15); opacity:1 }
+  to{ transform:translate(-50%,-50%) scale(1); opacity:1 }
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-block;
+  padding:14px 26px;
+  border-radius:50px;
+  background:var(--background);
+  color:var(--color);
+  border:var(--border-thick) solid var(--color);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  cursor:pointer;
+  position:relative;
+  transition:transform .22s cubic-bezier(.25,.46,.45,.94), box-shadow .22s;
+  text-decoration:none;
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  top:4px;
+  left:4px;
+  right:-4px;
+  bottom:-4px;
+  background:var(--color);
+  border-radius:inherit;
+  z-index:-1;
+  transition:all .22s;
+}
+
+.btn:hover::before{ top:8px; left:8px }
+
+.btn-primary{
+  background:var(--accent);
+  color:var(--background);
+  margin: 18px 0px 0px 0px;
+  transition: all 0.3s;
+  border-radius: 17px;
+}
+
+.btn-primary:hover{ background:#22c55e; border-radius: 11px;  }
+
+.btn-secondary{
+  background:var(--background);
+  color:var(--color);
+  transition: all 0.36s;
+  border-radius: 17px;
+}
+
+.btn-secondary:hover{
+  background:var(--color);
+  color:var(--background);
+  border-radius: 11px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--color);
+  border-radius: 4px;
+  background: var(--background);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  outline: none; /* 🔑 removes dotted outline */
+  box-shadow: none;
+}
+.checkbox-group input[type="checkbox"]:focus {
+  outline: none; /* also removes focus ring */
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.3); /* optional soft focus glow */
+}
+
+.collapse-container {
+  border: 2px solid var(--color); /* thinner border */
+  border-radius: var(--radius-md);
+  margin: 5px 0px 0px 0px;
+  overflow: hidden;
+  position: relative;
+}
+
+h3 { padding: 0px 0px 10px 0px; }
+
+.collapse-container::before {
+  top: 4px;
+  left: 4px;
+  right: -4px;
+  bottom: -4px;
+}
+
+.size-label {
+    display: block;
+    font-weight: 700;
+    color: var(--color);
+}
+
+.collapse-header {
+  background: var(--background);
+  padding: 11px 0px 0px 14px;
+  cursor: pointer;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.collapse-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 14px;
+  border-top: none;
+}
+
+.collapse-content.expanded {
+  max-height: 500px; /* enough to show options */
+  padding: 14px;
+}   
+
+/* Credits Paragraph */
+.credits-paragraph {
+    padding: 0px 0px 14px 0px;
+}
+
+
+/* Spinner */
+.btn-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.spinner{
+  width:24px;
+  height:24px;
+  border:3px solid var(--color);
+  border-top:3px solid var(--accent);
+  border-radius:50%;
+  flex-shrink: 0;
+  display:none;
+  animation: none;
+}
+.spinner.active {
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+.btn-primary {
+  margin: 0 !important;
+}
+
+@keyframes spin{ to{ transform:rotate(360deg) } }
+
+/* Expandable credits - toggled by jQuery slideToggle in main.js */
+.credits-card { overflow: visible !important; }
+.credits-hidden {
+  border-top: 2px solid var(--color);
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+
+/* Dialog (if used) */
+dialog{
+  border:var(--border-thick) solid var(--color);
+  border-radius:var(--radius-lg);
+  background:var(--background);
+  padding:0;
+  max-width:520px;
+  width:90%;
+  position:relative;
+}
+dialog::before{
+  content:"";
+  position:absolute;
+  top:6px;left:6px;right:-6px;bottom:-6px;
+  background:var(--color);border-radius:inherit;z-index:-1;
+}
+dialog::backdrop{
+  background:rgba(51,51,51,0.8);
+  backdrop-filter:blur(4px);
+}
+
+/* Lists & links */
+ul{ list-style:none; padding-left:0 }
+ul li{ padding-left:24px; margin-bottom:8px; position:relative }
+ul li::before{ content:'▶'; position:absolute; left:0; color:var(--accent); font-weight:900 }
+a{ color:var(--accent); font-weight:700; text-decoration:none }
+a:hover{ text-decoration:underline }
+a:focus{ outline:2px dashed var(--accent); outline-offset:3px }
+
+/* Responsiveness */
+@media (max-width:768px){
+  .container{ padding:16px }
+  .header h1{ font-size:1.8rem }
+  .btn{ padding:12px 18px; font-size: .76rem; }
+  .card-body{ padding:18px }
+}
+
+/* Small helpers */
+.sr-only{ position:absolute!important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+/* ---------- Download Toast ---------- */
+#download-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: var(--background);
+  border: var(--border-thick) solid var(--color);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-weight: 700;
+  box-shadow: 6px 6px 0 var(--color);
+  max-width: 320px;
+  overflow: hidden;
+}
+.toast-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border: 3px solid var(--color);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.toast-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.toast-title {
+  color: var(--color);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.toast-filename {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--accent);
+  transform-origin: left center;
+  animation: toast-shrink 3.5s linear forwards;
+}
+@keyframes toast-shrink {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
