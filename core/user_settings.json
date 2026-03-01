@@ -1,0 +1,8 @@
+{
+    "port": "8000",
+    "customize_port": false,
+    "auto_open": false,
+    "open_target": "app",
+    "theme": "system",
+    "save_path": "C:\\Users\\Ryan\\Documents"
+}
