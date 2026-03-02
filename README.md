@@ -9,7 +9,7 @@
 ### Option 1: The Easy Way (Recommended)
 Download and run the **Windows Installer**. This is the fastest method; it automatically handles shortcut creation and configures the necessary permissions to avoid "Access Denied" errors.
 
-* **Download**: Get `GerberToSTL_Setup_v0.1.4.exe` from the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page.
+* **Download**: Get `GerberToSTL_Setup_v2.5.2.exe` from the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page.
 * **Run**: Open the installer. It will request Administrator privileges to ensure the app can write STL files to your disk without `Errno 13` issues.
 * **Customize**: Use the checkboxes to automatically add **Gerber to STL** to your **Desktop** and **Start Menu**.
 * **Launch**: You can start the app immediately from the final installer screen.
