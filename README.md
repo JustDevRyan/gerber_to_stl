@@ -33,6 +33,8 @@ If you want to compile the binary or the installer yourself:
    git clone [https://github.com/JustDevRyan/gerber_to_stl.git](https://github.com/JustDevRyan/gerber_to_stl.git)
    cd gerber_to_stl
    pip install -r requirements.txt
+   python setup.py build
+Find the exe in the build folder and run it
 
 ### Option 4: Setup and run the application with Python
 `gerber_to_stl` **requires Python 3.9 or 3.10**
@@ -43,7 +45,7 @@ If you want to compile the binary or the installer yourself:
 ```bash
 pip install -r requirements.txt
 ```
-* Open **Gerber to STL.py** and thats it!
+* Open **Gerber to STL.py**
 
 ## Usage
 
