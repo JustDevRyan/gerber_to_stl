@@ -6,52 +6,35 @@
 
 ## Installation
 
-### Option 1: Install the latest [Release](https://github.com/JustDevRyan/gerber_to_stl/releases) (Recommended) (Windows Installer coming soon...)
+### Option 1: The Easy Way (Recommended)
+Download and run the **Windows Installer**. This is the fastest method; it automatically handles shortcut creation and configures the necessary permissions to avoid "Access Denied" errors.
 
-* Go to the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page
+* **Download**: Get `GerberToSTL_Setup_v0.1.4.exe` from the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page.
+* **Run**: Open the installer. It will request Administrator privileges to ensure the app can write STL files to your disk without `Errno 13` issues.
+* **Customize**: Use the checkboxes to automatically add **Gerber to STL** to your **Desktop** and **Start Menu**.
+* **Launch**: You can start the app immediately from the final installer screen.
 
-* Download the latest release ZIP
+### Option 2: Portable Version (No Installation)
+If you prefer not to use an installer, you can run the app from a standalone folder.
 
-* Extract the ZIP into a folder of your choice
+* **Download**: Download the latest release **ZIP** from the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page.
+* **Extract**: Unzip the contents into a folder of your choice.
+* **Shortcut**: Right-click `GerberToSTL.exe` and select "Send to > Desktop (create shortcut)".
+* **Note**: You may need to right-click the EXE and "Run as Administrator" if you encounter permission errors during the STL generation process.
 
-* Create a shortcut to **Gerber to STL.exe** to the desktop
+> **Note on Antivirus:** Some programs (like Windows Defender) may flag the installer or the standalone EXE as a threat. This is a common **false-positive** for compressed Python applications. Since this project is open-source, you can verify the code yourself or choose Option 3 to build it from scratch.
 
-* Open the shortcut (no Python installation required)
+### Option 3: Build the app by yourself
+If you want to compile the binary or the installer yourself:
 
-* Enjoy using **Gerber to STL** without manual setup!
+1. **Prerequisites**: Ensure you have **Python 3.9 or 3.10** installed.
+2. **Clone & Setup**:
+   ```bash
+   git clone [https://github.com/JustDevRyan/gerber_to_stl.git](https://github.com/JustDevRyan/gerber_to_stl.git)
+   cd gerber_to_stl
+   pip install -r requirements.txt
 
-**Note:** Some antivirus programs may flag the app as a virus.  
-This is a common false-positive for Python apps. The source code is open, continue to Option 2 if you are sceptical.
-
-### Option 2: Build the app by yourself
-
-If you prefer building the application from the source code:
-
-* Make sure you have **Python 3.9 or 3.10** installed.
-
-* Clone this repository:
-```bash
-git clone https://github.com/JustDevRyan/gerber_to_stl.git
-cd gerber_to_stl
-```
-
-* Install the requirements:
-```bash
-pip install -r requirements.txt
-```
-
-* To build the repository into a directory, run:
-```bash
-python setup.py build
-```
-
-* Your builded app should be located in the **build** folder
-
-* Send a shortcut to the desktop and name it (Optional).
-
-* Enjoy!
-
-### Option 3: Setup and run the application with Python (Not recommended)
+### Option 4: Setup and run the application with Python
 `gerber_to_stl` **requires Python 3.9 or 3.10**
 
 * Unzip openscad.zip
@@ -73,6 +56,7 @@ If you liked this project and my work, I would really appreciate a ⭐ on the re
 
 ## Changes
 * Added support to windows
+* Made an installer
 * Made a GUI in PyQt5
 * Cleaned and optimized parts of the code
 * Brand new styled and animated web page
