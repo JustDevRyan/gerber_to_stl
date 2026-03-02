@@ -47,15 +47,6 @@ pip install -r requirements.txt
 ```
 * Open **Gerber to STL.py**
 
-## Usage
-
-* Run `Gerber to STL.exe` or `Gerber to STL.py`. You can either start it directly or customize the port before starting it.  
-
-* Once the server is running, you can either open it in your default browser or you can launch a webview that is like a window rather than a browser.
-
-If you liked this project and my work, I would really appreciate a ⭐ on the repository!
-
-
 ## Changes
 * Added support to windows
 * Made an installer
@@ -66,6 +57,8 @@ If you liked this project and my work, I would really appreciate a ⭐ on the re
 * Removed the need of poetry
 * Removed unnecessary files
 * Designed an icon
+
+If you liked this project and my work, I would really appreciate a ⭐ on the repository!
 
 ## Contributing
 
