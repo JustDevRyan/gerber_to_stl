@@ -19,7 +19,7 @@ If you prefer not to use an installer, you can run the app from a standalone fol
 
 * **Download**: Download the latest release **ZIP** from the [Releases](https://github.com/JustDevRyan/gerber_to_stl/releases) page.
 * **Extract**: Unzip the contents into a folder of your choice.
-* **Shortcut**: Right-click `GerberToSTL.exe` and select "Send to > Desktop (create shortcut)".
+* **Shortcut**: Right-click `Gerber To STL.exe` and select "Send to > Desktop (create shortcut)".
 * **Note**: You may need to right-click the EXE and "Run as Administrator" if you encounter permission errors during the STL generation process.
 
 > **Note on Antivirus:** Some programs (like Windows Defender) may flag the installer or the standalone EXE as a threat. This is a common **false-positive** for compressed Python applications. Since this project is open-source, you can verify the code yourself or choose Option 3 to build it from scratch.
