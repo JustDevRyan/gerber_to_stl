@@ -47,6 +47,9 @@ pip install -r requirements.txt
 ```
 * Open **Gerber to STL.py**
 
+### NOTE:
+* If you experience some access errors - for example [Errno 13] Access denied or Permission denied, you have to run the application as administrator. This is set by default by the installer but sometimes in rare cases it may fail.
+
 ## Changes
 * Added support to windows
 * Made an installer
